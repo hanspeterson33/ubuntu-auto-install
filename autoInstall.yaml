@@ -8,7 +8,7 @@ autoinstall:
     hostname: ubuntu-node
     username: wexlab
     password: "$6$qR0BKmOyxlVKQHmD$ik45.yWfzxz468CVabSKtyWEBycRjR3gJrhHUBPF8OWIZfyKAntyXPlD1AQp20xveB3eJG3hpJ6oBuTSJ9ipr1" # SHA-512 hash for "wexlab23"
-    realname: "Wexlab"
+    realname: "wexlab"
   storage:
     layout:
       name: direct
