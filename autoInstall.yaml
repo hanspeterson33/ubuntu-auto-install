@@ -26,7 +26,6 @@ autoinstall:
   late-commands:
     - curtin in-target --target /target -- apt update -y
     - curtin in-target --target /target -- apt upgrade -y
-    - echo "alias ll='ls -alF'" >> /target/home/wexlab/.bashrc
     # Docker install
     - curtin in-target --target sudo apt install ca-certificates curl gnupg lsb-release
     - curtin in-target --target mkdir -p /etc/apt/keyrings
