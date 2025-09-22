@@ -1,0 +1,38 @@
+autoinstall:
+  version: 1
+  locale: en_US.UTF-8
+  timezone: America/Boise
+  keyboard:
+    layout: us
+  identity:
+    hostname: ubuntu-node
+    username: wexlab
+    password: "$6$qR0BKmOyxlVKQHmD$ik45.yWfzxz468CVabSKtyWEBycRjR3gJrhHUBPF8OWIZfyKAntyXPlD1AQp20xveB3eJG3hpJ6oBuTSJ9ipr1" # SHA-512 hash for "wexlab23"
+    realname: "Wexlab"
+  storage:
+    layout:
+      name: lvm
+      sizing-policy: auto # Or specify custom partitions
+  ssh:
+    install-server: true
+    allow-pw: true # Allow password authentication
+    authorized-keys: [] # Optional: list of SSH public keys
+  packages:
+    - vim
+    - htop
+    - git
+    - ubuntu-desktop # Installs the default Ubuntu desktop (GNOME)
+  late-commands:
+    - curtin in-target --target /target -- apt update -y
+    - curtin in-target --target /target -- apt upgrade -y
+    - echo "alias ll='ls -alF'" >> /target/home/wexlab/.bashrc
+    # Docker install
+    - curtin in-target --target sudo apt install ca-certificates curl gnupg lsb-release
+    - curtin in-target --target mkdir -p /etc/apt/keyrings
+    - curtin in-target --target curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+    - curtin in-target --target /target -- echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+    - curtin in-target --target /target -- apt update
+    - curtin in-target --target /target -- apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+    - curtin in-target --target /target -- usermod -aG docker wexlab
+    # Reboot
+    - reboot
