@@ -11,8 +11,9 @@ autoinstall:
     realname: "Wexlab"
   storage:
     layout:
-      name: lvm
-      sizing-policy: auto # Or specify custom partitions
+      name: direct
+      match:
+        size: 100% # Use the entire disk
   ssh:
     install-server: true
     allow-pw: true # Allow password authentication
