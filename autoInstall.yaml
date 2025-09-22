@@ -27,7 +27,9 @@ autoinstall:
   late-commands:
     - curtin in-target --target /target -- apt update -y
     - curtin in-target --target /target -- apt upgrade -y
-    # Docker install
-    - curtin in-target --target /target -- usermod -aG docker wexlab
     # Reboot
     - reboot
+  cloud_init_modules:
+    - runcmd
+  runcmd:
+    - [ "usermod", "-aG", "docker", "wexlab" ]
