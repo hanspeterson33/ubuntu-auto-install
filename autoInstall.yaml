@@ -27,7 +27,6 @@ autoinstall:
   late-commands:
     - curtin in-target --target /target -- apt update -y
     - curtin in-target --target /target -- apt upgrade -y
-  cloud_init_modules:
-    - runcmd
-  runcmd:
-    - [ "usermod", "-aG", "docker", "wexlab" ]
+  user-data:
+    runcmd:
+      - [ "usermod", "-aG", "docker", "wexlab" ]
