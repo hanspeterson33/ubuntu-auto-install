@@ -27,12 +27,12 @@ autoinstall:
     - curtin in-target --target /target -- apt update -y
     - curtin in-target --target /target -- apt upgrade -y
     # Docker install
-    - curtin in-target --target /target -- apt install ca-certificates curl gnupg lsb-release
+    - curtin in-target --target /target -- apt install -y ca-certificates curl gnupg lsb-release
     - curtin in-target --target /target -- mkdir -p /etc/apt/keyrings
     - curtin in-target --target /target -- curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
     - curtin in-target --target /target -- echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
     - curtin in-target --target /target -- apt update
-    - curtin in-target --target /target -- apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+    - curtin in-target --target /target -- apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
     - curtin in-target --target /target -- usermod -aG docker wexlab
     # Reboot
     - reboot
